@@ -1,11 +1,13 @@
-package goslindarragh.PaperMoon;
+package	com.goslindarragh.PaperMoon;
 
 import	java.util.Date;
 import	java.util.Scanner;
+import	org.apache.logging.log4j.LogManager;
+import	org.apache.logging.log4j.Logger;
 /*****************************************************************
 	*
-	*	 Date:	2017
-	*	 @author	COR
+	*	 	Date:	2017
+	*	 	@author	COR
 	*
 	*	
 	*	The	purpose	of	this	application	is	to	provide	an	example	for	the	following:
@@ -14,6 +16,7 @@ import	java.util.Scanner;
 	*	-	Demonstrates	how	to	use	Eclipse
 	*	-	Provides	a	refresher	of	OOP	in	Java
 	*	-	Provide	an	introduction	to	project	file	structure	layout	-	MAVEN	Archetype
+	*	-	Show	how	to	setup	Log4j2
 	*	
 *****************************************************************/
 public	class App
@@ -34,11 +37,21 @@ public	class App
 				private	 Scanner	someInput;
 				private	Date	today;
 				
+				//	This	is	added	to	every	class	that	needs	to	log	with	one	change
+				//	The	getLogger(	)	part	should	contain	the	name	of	the	class	its	in
+				private	static	Logger	LOG;
+				
 				//	CONSTRUCTORS
 				//............................................................
 				
 				public	App()
 				{	 	
+								//associate	logging	with	this	class	so	know	the	messages	that	came	from	objects	of	this	class
+								LOG	=	LogManager.getLogger(App.class);
+								
+								//test	the	logging
+								testLogOutput();
+								
 								this.someInput	=	new	Scanner(System.in);
 								
 								//do	something	here
@@ -85,6 +98,21 @@ public	class App
 												}
 								}
 									
-					}
+					}//EOM
+					
+				/**
+					*	Test	the	Log4J2	logging
+					*/
+					private	static void	testLogOutput()
+					{
+								LOG.debug("Log	test:	Test	printed	on	debug");
+								LOG.info("Log	test:	Test	printed	on	info");
+								LOG.warn("Log	test:	Test	printed	on	warn");
+								LOG.error("Log	test:	Test	printed	on	error");
+								LOG.fatal("Log	test:	Test	printed	on	fatal");
+				
+								LOG.info("Appending	string:	{}.",	"Application	log	test	message	-	Hi");
+									
+					}//EOM
 				
 }//EOC
